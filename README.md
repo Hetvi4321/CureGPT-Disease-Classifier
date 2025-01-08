@@ -104,9 +104,8 @@ This project is licensed under the MIT License.
 
 ## Contact
 
-For any inquiries or further information, please reach out via email at:
+For any inquiries or further information, please reach out via email:
 
-Hetvi Shah
-Email: me.hetvi.123@gmail.com
+Hetvi Shah: me.hetvi.123@gmail.com
 
 Feel free to connect for collaboration, project queries, or access to relevant resources such as API keys.
