@@ -106,7 +106,7 @@ This project is licensed under the MIT License.
 
 For any inquiries or further information, please reach out via email at:
 
-Kanishk Pandey
-Email: kanishkp.dev@gmail.com
+Hetvi Shah
+Email: me.hetvi.123@gmail.com
 
 Feel free to connect for collaboration, project queries, or access to relevant resources such as API keys.
