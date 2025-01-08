@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Message Input Design</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #1f1f1f;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .message-container {
+            display: flex;
+            align-items: center;
+            background-color: #333;
+            border-radius: 50px;
+            padding: 9px 10px;
+            width: 1000px;
+            height: 40px;
+        }
+
+        .attachment-icon {
+            color: #888;
+            font-size: 18px;
+            margin-right: 10px;
+            cursor: pointer;
+        }
+
+        #messageInput {
+            flex-grow: 1;
+            background: none;
+            border: none;
+            color: white;
+            outline: none;
+            font-size: 16px;
+            padding: 0 10px;
+        }
+
+        #messageInput::placeholder {
+            color: #666;
+        }
+
+        .send-button {
+            background-color: #555;
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            color: #888;
+        }
+
+        .send-button:hover {
+            background-color: #777;
+        }
+
+        .send-button i {
+            font-size: 16px;
+        }
+    </style>
+</head>
+<body>
+    <div class="message-container">
+        <div class="attachment-icon">
+            <i class="fas fa-paperclip"></i>
+        </div>
+        <input type="text" placeholder="Message ChatGPT" id="messageInput">
+        <button class="send-button">
+            <i class="fas fa-arrow-up"></i>
+        </button>
+    </div>
+</body>
+</html>

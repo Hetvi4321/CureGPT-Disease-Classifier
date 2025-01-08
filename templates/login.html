@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Sign In</title>
+    <link rel="stylesheet" href="../static/signup.css">
+</head>
+
+<body>
+    <div id="toastContainer"></div>
+    <div class="main">
+        <!-- Sign in form -->
+        <section class="sign-in">
+            <div class="container">
+                <div class="signin-content">
+                    <div class="signin-form">
+                        <h3 class="form-title">Sign In</h3>
+                        <!-- Error message display -->
+                        {% if error %}
+                        <div class="error-message">{{ error }}</div>
+                        {% endif %}
+                        <!-- Success message display -->
+                        {% if success %}
+                        <div class="success-message">{{ success }}</div>
+                        {% endif %}
+                        <form action="/login" method="POST" class="register-form" id="login-form">
+                            <div class="form-group">
+                                <label for="email"><i class="zmdi zmdi-account material-icons-name"></i></label>
+                                <input type="email" name="email" id="email" placeholder="Email" required />
+                            </div>
+                            <div class="form-group">
+                                <label for="pass"><i class="zmdi zmdi-lock"></i></label>
+                                <input type="password" name="password" id="pass" placeholder="Password" required />
+                            </div>
+                            <div class="form-group" id="remember-me">
+                                <input type="checkbox" name="remember-me" id="remember-me" class="agree-term" />
+                                <label for="remember-me" class="label-agree-term">Remember me</label>
+                            </div>
+                            <div class="form-group">
+                                <input type="submit" name="signin" id="signin" class="form-submit" value="Log in" />
+                            </div>
+                        </form>
+                        <div class="social-login">
+                            <a href="/signup" class="signup-image-link">Create an account</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <style>
+        .error-message {
+            color: red;
+            font-size: 0.875em;
+            margin-top: 10px;
+            opacity: 0;
+            transform: translateY(-10px);
+            transition: opacity 0.3s ease, transform 0.3s ease;
+        }
+
+        .error-message.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .success-message {
+            color: green;
+            font-size: 0.875em;
+            margin-top: 10px;
+        }
+    </style>
+
+</body>
+
+</html>

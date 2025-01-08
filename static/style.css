@@ -1,0 +1,452 @@
+* {
+  font-family: "Montserrat", sans-serif;
+  font-optical-sizing: auto;
+  font-style: normal;
+}
+
+body {
+  background-color: #100e0e;
+  font-weight: 400;
+  color: white;
+}
+
+/* Sidebar Styling */
+.sidebar {
+  position: fixed;
+  left: -250px; /* Hide sidebar initially */
+  top: 0;
+  width: 250px;
+  height: 100%;
+  background-color: #1a1a1a;
+  color: white;
+  padding: 20px;
+  box-sizing: border-box;
+  overflow-y: auto;
+  transition: left 0.3s ease-in-out; /* Smooth slide-in animation */
+  z-index: 9999;
+}
+
+.sidebar.active {
+  left: 0; /* Slide the sidebar in */
+}
+
+.sidebar h2 {
+  text-align: center;
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+.sidebar ul {
+  list-style: none;
+  padding-left: 0;
+}
+
+.sidebar li {
+  background-color: #333;
+  margin-bottom: 10px;
+  padding: 10px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.5s ease-in-out;
+}
+
+.sidebar li:hover {
+  background-color: #444;
+}
+
+/* Sidebar toggle button */
+.sidebar-toggle {
+  position: fixed;
+  left: 10px;
+  top: 32px;
+  background-color:transparent;
+  color: white;
+  padding: 10px;
+  border: none;
+  cursor: pointer;
+  font-size: 24px;
+  z-index: 10000;
+}
+
+#historyList{
+  padding: 15px;
+}
+/* Shift main content and navbar when sidebar is active */
+.container-main,
+.container,
+.footer {
+  transition: margin-left 1s ease-in-out;
+}
+
+.container-main.shifted,
+.container.shifted,
+.footer.shifted {
+  margin-left: 270px; /* Shift content, navbar, and footer to the right */
+}
+
+.footer.shifted {
+  width: calc(100% - 270px);
+}
+
+
+
+/* Rest of your existing CSS remains unchanged */
+
+.container {
+  position: fixed;
+  width: 100vw;
+  top: 0;
+  
+  background-color: #100e0e;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  z-index: 10;
+ 
+}
+div .navbar-left:hover {
+  cursor: pointer;
+}
+.dropdown {
+  min-width: 15em;
+  position: relative;
+  margin: 2rem;
+}
+.dropdown * {
+  box-sizing: border-box;
+}
+
+/* Adjusting the dropdown menu position */
+.navbar-left .dropdown {
+  position: relative;
+  left: 30px;  
+}
+
+.select {
+  background: #2a2f3b;
+  color: #fff;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border: 2px #2a2f3b solid;
+  border-radius: 0.5em;
+  padding: 1em;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+.select-clicked {
+  border: 2px #26489a solid;
+  box-shadow: 0 0 0.8em #26489a;
+}
+.select:hover {
+  background: #323741;
+}
+.caret {
+  width: 0;
+  height: 0;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-top: 6px solid #fff;
+  transition: 0.3s;
+}
+.caret-rotate {
+  transform: rotate(180deg);
+}
+
+.menu {
+  list-style: none;
+  padding: 0.2em 0.5em;
+  background: #323741;
+  border: 1px #363a43 solid;
+  box-shadow: 0 0.5em 1em rgba(0, 0, 0, 0.2);
+  border-radius: 0.5em;
+  color: #9fa5b5;
+  position: absolute;
+  top: 3em;
+  left: 50%;
+  width: 100%;
+  transform: translateX(-50%);
+  opacity: 0;
+  display: none;
+  transition: 0.2s;
+}
+.menu li {
+  padding: 0.7em 0.5em;
+  margin: 0.3em 0;
+  border-radius: 0.5em;
+  cursor: pointer;
+}
+.menu li:hover {
+  background: #2a2d35;
+}
+.active {
+  background: #23242a;
+}
+.menu-open {
+  display: block;
+  opacity: 10;
+}
+a {
+  text-decoration: none;
+  color: white;
+}
+.animated-text {
+  animation: fadeIn 1.5s ease-in-out 0s 1;
+}
+
+@keyframes fadeIn {
+  0% {
+    clip-path: polygon(0% 0%, 0% 100%, 0% 100%, 0% 0%);
+  }
+  100% {
+    clip-path: polygon(100% 0%, 100% 100%, 0% 100%, 0% 0%);
+    opacity: 1;
+  }
+}
+li {
+  list-style: none;
+  color: white;
+}
+.material-symbols-outlined {
+  font-variation-settings: "FILL" 0, "wght" 400, "GRAD" 0, "opsz" 24;
+}
+
+.nav_link {
+  display: flex;
+}
+.navbar-right{
+  margin-right: 4rem;
+
+}
+
+/* Signup/Signout button in the navbar */
+.settings {
+  position: fixed;  
+  top: 20px; 
+  right: 20px; 
+  display: flex;
+  align-items: center;  
+  z-index: 10000; 
+}
+
+/* Adjust position of navbar container to avoid overlapping with .settings */
+.container {
+  padding-right: 80px; 
+}
+
+/* Sidebar shifting styles */
+.container-main,
+.container,
+.footer {
+  transition: margin-left 0.3s ease;
+}
+
+.container-main.shifted,
+.container.shifted,
+.footer.shifted {
+  margin-left: 270px;  
+}
+
+/* Keep the settings button in place even after sidebar toggle */
+.container.shifted .settings {
+  right: 20px;  
+}
+
+.container-main {
+  margin: 0 auto;
+  width: 75%;
+  padding: 120px 20px;
+  margin-top: 80px;  
+  margin-bottom: 80px; 
+  overflow-y: auto;  
+  max-height: calc(100vh - 160px);  
+  box-sizing: border-box;
+}
+.greeting {
+  text-align: left;
+  font-size: 50px;
+  font-weight: 600;
+  padding: 20px 0px;
+  letter-spacing: -1px;
+}
+.greeting a {
+  background-image: linear-gradient(
+    43deg,
+    #415bd0 0%,
+    #cb50c0 46%,
+    #ffcc70 100%
+  );
+  -webkit-background-clip: text;
+  color: transparent;
+}
+.suggestions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+ 
+.suggestion {
+  width: 250px;
+  text-align: left;
+  margin-bottom: 20px;
+  box-sizing: border-box;
+  background: #222222;
+  border-radius: 10px;
+  text-align: center;
+}
+
+.suggestion {
+  width: 250px;
+  text-align: left;
+  margin-bottom: 20px;
+  box-sizing: border-box;
+  background: #222222;
+  border-radius: 10px;
+  text-align: center;
+  padding: 8px;  
+  transition: all 0.3s ease;  
+}
+
+.suggestion:hover {
+  cursor: pointer;
+  background-color: #333333;  
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);  
+  transform: scale(1.05);  
+} 
+
+
+.suggestion img {
+  width: 100px;
+  height: 100px;
+  margin-bottom: 10px;
+}
+
+.prompt-input {
+  text-align: center;
+}
+.loading-bar {
+  width: 200px;
+  height: 10px;
+  background-color: #f0f0f0;
+  border-radius: 5px;
+  overflow: hidden;
+}
+
+.bar {
+  width: 0%;
+  height: 100%;
+  background-color: #4CAF50;
+  animation: loading-bar 2s 1 linear;
+}
+
+@keyframes loading-bar {
+  0% {
+    width: 0%;
+  }
+  100% {
+    width: 100%;
+  }
+}
+.input,.output{
+  position: relative;
+  width: 50%;
+  left: 50%;
+  transform: translateX(-50%);
+  max-height: calc(100vh-100px);
+  z-index: -1;
+  margin-top: 100px;
+  padding: 20px;
+  border-radius: 10px;
+  cursor: text;
+}
+.output{
+  background-color: #222222;
+  margin-top: 10px;
+}
+
+.prediction {
+  padding: 20px;
+  max-height: calc(100vh - 200px);  
+  overflow-y: auto;
+  margin-bottom: 80px;
+}
+
+.message-container {
+    margin-left: auto;
+    margin-right: auto;
+    display: flex;
+    align-items: center;
+    background-color: #222;
+    border-radius: 50px;
+    padding: 9px 10px;
+    width: 80vw;
+    height: 40px;
+}
+
+.attachment-icon {
+    color: #888;
+    font-size: 18px;
+    margin-right: 10px;
+    cursor: pointer;
+}
+
+#prompt {
+    flex-grow: 1;
+    background: none;
+    border: none;
+    color: white;
+    outline: none;
+    font-size: 16px;
+    padding: 0 10px;
+}
+
+#messageInput::placeholder {
+    color: #666;
+}
+
+.submit {
+    background-color: #555;
+    border: none;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    color: #888;
+}
+
+.submit:hover {
+    background-color: #777;
+}
+
+.submit i {
+    font-size: 18px;
+    cursor: auto;
+}
+
+.footer {
+  position: fixed;
+  width: 100%;
+  bottom: 0;
+  text-align: center;
+  background-color: #100e0e;
+}
+
+.footer p{
+  padding-bottom: 0;
+}
+.entry {
+    margin-bottom: 10px;
+}
+
+.input {
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.output {
+    margin-left: 20px;
+}
+

@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>DPS</title>
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
+        rel="stylesheet" />
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="../static/style.css" />
+</head>
+
+<body>
+    <div class="container">
+        <div class="navbar-left">
+            <div class="dropdown">
+                <div class="select">
+                    <span class="selected">GPTCure </span>
+                    <div class="caret"></div>
+                </div>
+                <ul class="menu">
+                    <li class="active">GPTCure</li>
+                    <li>GPTCure Advanced</li>
+                </ul>
+            </div>
+        </div>
+        <div class="navbar-right">
+            <div class="settings"><a href="/signup"><span class="material-symbols-outlined"><span class="material-symbols-outlined">Logout</span>
+            </a></div>
+        </div>
+    </div>
+
+    <!-- Sidebar toggle button -->
+    <button class="sidebar-toggle" id="sidebarToggle">☰</button>
+
+    <!-- Sidebar for storing chat history -->
+    <div class="sidebar" id="sidebar">
+        <h2>History</h2>
+        <!-- <div class="block"></div> -->
+        <ul id="historyList">
+            <li></li>
+        </ul>
+    </div>
+
+    <div class="container-main" id="mainContent">
+        <div class="greeting">
+            <a class="animated-text">Hello, {{ user_name }}</a> <br />
+            How can I help you today?
+        </div>
+
+        <div class="suggestions">
+            <div class="suggestion">
+                <p>Can you tell me how you're feeling today? </p>
+            </div>
+            <div class="suggestion">
+                <p>What symptoms are you experiencing? </p>
+            </div>
+            <div class="suggestion">
+                <p>Have you been feeling fatigued or unusually tired? </p>
+            </div>
+            <div class="suggestion">
+                <p>Do you have a fever or chills?</p>
+            </div>
+        </div>
+    </div>
+    <div class="prediction">
+    </div>
+    <div class="footer">
+        <div class="prompt-input">
+            <form action="/predict" method="POST" id="promptForm">
+                <div class="message-container">
+                    <div class="attachment-icon">
+                        <i class="fas fa-paperclip"></i>
+                    </div>
+                    <input type="text" placeholder="Message DPS" id="prompt" name="prompt">
+                    <button type="submit" class="submit">
+                        <i class="fas fa-arrow-up"></i>
+                    </button>
+                </div>
+            </form>
+        </div>
+
+        <p>
+            GPTCure may display inaccurate info, including about people, so double-check its responses.
+        </p>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function () {
+    const promptInput = document.getElementById('prompt');
+    const submitButton = document.querySelector('.submit');
+    const arrow = document.querySelector(".submit i ");
+
+    promptInput.addEventListener('input', function () {
+        if (promptInput.value.trim() !== "") {
+            submitButton.disabled = false;
+            submitButton.style.backgroundColor = "#090909";
+            submitButton.style.cursor = "pointer";
+        } else {
+            submitButton.disabled = true;
+            submitButton.style.backgroundColor = "#555";
+            submitButton.style.cursor = "";
+        }
+    });
+
+    $("#promptForm").on("submit", function (event) {
+        event.preventDefault();
+
+        let userInput = $("#prompt").val();
+
+        $.ajax({
+            url: "/predict",
+            type: "POST",
+            data: $(this).serialize(),
+            success: function (response) {
+                console.log(response);
+
+                let newEntry = document.createElement('div');
+                newEntry.classList.add('entry');
+
+                let inputDiv = document.createElement('div');
+                inputDiv.classList.add('input');
+                inputDiv.innerText = `You: ${userInput}`;
+
+                let outputDiv = document.createElement('div');
+                outputDiv.classList.add('output');
+                outputDiv.innerText = `Response: ${response}`;
+
+                newEntry.appendChild(inputDiv);
+                newEntry.appendChild(outputDiv);
+
+                document.querySelector('.prediction').appendChild(newEntry);
+                addToHistory(userInput);
+
+                $("#promptForm")[0].reset();
+                $("input").blur();
+
+                updateSidebar();
+            },
+            error: function () {
+                let errorDiv = document.createElement('div');
+                errorDiv.innerText = "An error occurred while processing your request.";
+                document.querySelector('.prediction').appendChild(errorDiv);
+            },
+        });
+    });
+
+    function addToHistory(userInput) {
+        const historyList = document.getElementById('historyList');
+        const newListItem = document.createElement('li');
+        newListItem.innerText = userInput;
+        historyList.appendChild(newListItem);
+    }
+
+    function updateSidebar() {
+        $.ajax({
+            url: '/get_user_data',
+            type: 'GET',
+            success: function (data) {
+                populateSidebar(data.reverse());
+            },
+            error: function () {
+                console.error('Failed to fetch user data');
+            }
+        });
+    }
+
+    function populateSidebar(entries) {
+        const sidebar = document.getElementById('historyList');
+        sidebar.innerHTML = '';
+
+        entries.forEach(entry => {
+            console.log(entry);
+            const listItem = document.createElement('li');
+            listItem.innerText = `Date: ${entry[0][0]} \n Conversations: ${entry.length}`;
+            listItem.addEventListener('click', () => restoreHistory(entry));
+            sidebar.appendChild(listItem);
+        });
+    }
+    function restoreHistory(entries) {
+        const main_container = document.querySelector('.container-main');
+
+        if (main_container) {
+            main_container.remove();
+
+            // Adding prediction div after sidebar
+            const sidebar = document.querySelector('.sidebar');
+
+            // Create the prediction div
+            const predictionDiv = document.createElement('div');
+            predictionDiv.id = 'prediction';
+
+            // Insert the prediction div after the sidebar
+            sidebar.parentNode.insertBefore(predictionDiv, sidebar.nextSibling);
+        } else {
+            // Clear all children of the prediction div
+            const predictionDiv = document.getElementById('prediction'); // Use id instead of class
+            if (predictionDiv) {
+                predictionDiv.innerHTML = "";
+            }
+        }
+
+        // Get the prediction div (ensure it's created or cleared)
+        const predictionDiv = document.getElementById('prediction');
+
+        // Loop through entries and create entry divs
+        for (let entry of entries) {
+            // Create the entry div
+            const entryDiv = document.createElement('div');
+            entryDiv.className = 'entry';
+
+            // Create the input div
+            const inputDiv = document.createElement('div');
+            inputDiv.className = 'input';
+            inputDiv.textContent = entry[1]; // Set textContent for input div
+
+            // Create the output div
+            const outputDiv = document.createElement('div');
+            outputDiv.className = 'output';
+            outputDiv.textContent = entry[2]; // Set textContent for output div
+
+            // Append input and output divs to entry div
+            entryDiv.appendChild(inputDiv);
+            entryDiv.appendChild(outputDiv);
+
+            // Append entry div to prediction div
+            predictionDiv.appendChild(entryDiv);
+        }
+    }
+
+    $('#sidebarToggle').on('click', function () {
+        $('.container').toggleClass('shifted');
+    });
+
+    updateSidebar();
+});
+
+</script>
+
+
+
+
+    <script src="../static/script.js"></script>
+</body>
+
+</html>

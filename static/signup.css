@@ -1,0 +1,149 @@
+/* General Styles */
+body {
+  font-family: 'Arial', sans-serif;
+  background:  linear-gradient(43deg, #415bd0 0%, #cb50c0 46%, #ffcc70 100%);
+  color: #333;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+}
+
+/* Container */
+.container {
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+  padding: 30px;
+  width: 400px;
+  max-width: 100%;
+}
+
+/* Form Title */
+.form-title {
+  font-size: 24px;
+  font-weight: bold;
+  color: #333;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+/* Form Group */
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-group label {
+  color: #333;
+}
+
+.form-group input {
+  width: 100%;
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  transition: all 0.3s ease;
+}
+
+.form-group input:focus {
+  border-color: #36393e;
+  box-shadow: 0 0 8px rgba(0, 114, 255, 0.3);
+}
+
+/* Remember Me Checkbox */
+#remember-me {
+  display: flex;
+  align-items: center;
+}
+
+.agree-term {
+  margin-right: 5px;
+  width: 15px;  
+  height: 15px; 
+}
+/* Submit Button */
+.form-submit {
+  background: #3753d2;
+  color: rgb(8, 249, 249);
+  border: none;
+  padding: 12px;
+  width: 100%;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.form-submit:hover {
+  background: #005bb5;
+}
+
+/* Error and Success Messages */
+.error_message, #login_message {
+  font-size: 14px;
+  margin-top: 10px;
+  text-align: center;
+}
+
+/* Link to Signup Page */
+.signup-image-link {
+  display: block;
+  text-align: center;
+  color: #0072ff;
+  text-decoration: none;
+  margin-top: 20px;
+  transition: color 0.3s ease;
+}
+
+.signup-image-link:hover {
+  color: #005bb5;
+}
+
+/* Social Login (if applicable) */
+.social-login a {
+  text-decoration: none;
+  color: #0072ff;
+  transition: color 0.3s ease;
+}
+
+.social-login a:hover {
+  color: #005bb5;
+}
+
+ .error-message {
+    display: none; /* Hide error message by default */
+    color: red;
+    font-size: 0.875em;
+    margin-top: 10px;
+    opacity: 0;
+    transform: translateY(-10px);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.error-message.show {
+    display: block;
+    opacity: 1;
+    transform: translateY(0);
+}
+#toastContainer {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 1000;
+}
+
+.toast {
+    background-color: #f44336; /* Red background */
+    color: white; /* White text */
+    padding: 16px;
+    margin: 5px 0;
+    border-radius: 4px;
+    animation: fadeInOut 3s forwards;
+}
+
+@keyframes fadeInOut {
+    0% { opacity: 0; }
+    10% { opacity: 1; }
+    90% { opacity: 1; }
+    100% { opacity: 0; }
+}
